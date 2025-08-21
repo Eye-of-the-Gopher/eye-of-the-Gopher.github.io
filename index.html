@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye of the Gopher - Dungeon Crawler Engine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 50%, #2c2c2c 100%);
+            background-attachment: fixed;
+            color: #d4af37;
+            font-family: 'Crimson Text', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #8b4513;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.1), transparent);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.3);
+            border: 3px solid #8b4513;
+            background: linear-gradient(145deg, rgba(60, 60, 60, 0.9), rgba(40, 40, 40, 0.95));
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.5);
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.3);
+            margin: 0;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            color: #a0a0a0;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, rgba(60, 60, 60, 0.8), rgba(40, 40, 40, 0.9));
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8b4513, #cd853f, #8b4513);
+            z-index: -1;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .feature-card p {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .section {
+            margin: 60px 0;
+        }
+        
+        .section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #d4af37;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
+        
+        .content-box {
+            background: linear-gradient(145deg, rgba(50, 50, 50, 0.9), rgba(30, 30, 30, 0.95));
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .roadmap {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .roadmap-item {
+            background: rgba(40, 40, 40, 0.8);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .roadmap-item h4 {
+            font-family: 'Cinzel', serif;
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .blog-entry {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid #666;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .blog-entry h4 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            margin-bottom: 8px;
+            font-size: 1.4em;
+        }
+        
+        .blog-date {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 3px solid #8b4513;
+            margin-top: 60px;
+            color: #888;
+            background: linear-gradient(to top, rgba(139, 69, 19, 0.1), transparent);
+        }
+        
+        .torch-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, rgba(255, 69, 0, 0.2) 30%, transparent 70%);
+            border-radius: 50%;
+            animation: flicker 3s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .features { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+            .logo-container { 
+                flex-direction: column; 
+                gap: 20px; 
+            }
+            .logo { 
+                width: 100px; 
+                height: 100px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="torch-glow"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" 
+                     alt="Eye of the Gopher Logo" 
+                     class="logo"
+                     style="content: url('your-logo-file.png');">
+                <h1>Eye of the Gopher</h1>
+            </div>
+            <p class="subtitle">A Modern Go Implementation of Classic Dungeon Crawling</p>
+        </header>
+        
+        <section class="features">
+            <div class="feature-card">
+                <h3>🔓 Free and Open Source</h3>
+                <p>Built with the freedom to explore, modify, and distribute. Licensed under GPL, ensuring the community can contribute and benefit from ongoing development.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🎮 Compatible with Original Assets</h3>
+                <p>Seamlessly works with your original Eye of the Beholder game files. Experience classic dungeons with modern performance and reliability.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>✨ Graphics Refresh</h3>
+                <p>Enhanced visual fidelity while preserving the authentic retro atmosphere. Improved rendering pipeline built with modern Go graphics libraries.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>🗺️ Roadmap</h2>
+            <div class="content-box">
+                <div class="roadmap">
+                    <div class="roadmap-item">
+                        <h4>Phase 1: Core Engine</h4>
+                        <p>PAK file extraction, LCW decompression, basic asset loading and rendering foundation</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Phase 2: Game Logic</h4>
+                        <p>Character movement, collision detection, inventory system, and combat mechanics</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Phase 3: Enhanced Features</h4>
+                        <p>Modern UI improvements, enhanced graphics options, save system modernization</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Phase 4: Community & Modding</h4>
+                        <p>Modding API, level editor, community tools and documentation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>📜 Development Log</h2>
+            <div class="content-box">
+                <div id="blog-content">
+                    <div class="blog-entry">
+                        <h4>Loading updates...</h4>
+                        <p>Fetching latest development news...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2024 Eye of the Gopher Project | Licensed under GPL v3 | Built with Go</p>
+            <p>Eye of the Beholder is a trademark of TSR/Wizards of the Coast</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script>
+        // Fetch and render markdown blog updates
+        async function loadBlogUpdates() {
+            try {
+                const response = await fetch('./blog-updates.md');
+                if (!response.ok) throw new Error('Blog updates not found');
+                
+                const markdown = await response.text();
+                const html = marked.parse(markdown);
+                
+                // Parse the HTML to create blog entries
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                
+                const blogContainer = document.getElementById('blog-content');
+                blogContainer.innerHTML = '';
+                
+                // Look for h3 headers as blog post titles
+                const headers = tempDiv.querySelectorAll('h3');
+                
+                if (headers.length === 0) {
+                    // If no h3 headers, treat as a single post
+                    blogContainer.innerHTML = `
+                        <div class="blog-entry">
+                            <h4>Latest Update</h4>
+                            <div class="blog-date">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</div>
+                            ${html}
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Process each blog entry
+                headers.forEach((header, index) => {
+                    const blogEntry = document.createElement('div');
+                    blogEntry.className = 'blog-entry';
+                    
+                    let content = '';
+                    let currentElement = header.nextElementSibling;
+                    
+                    // Collect content until next h3 or end
+                    while (currentElement && currentElement.tagName !== 'H3') {
+                        content += currentElement.outerHTML;
+                        currentElement = currentElement.nextElementSibling;
+                    }
+                    
+                    // Extract date from header text if present (format: "Title - Date")
+                    const headerText = header.textContent;
+                    const dateMatch = headerText.match(/(.+?)\s*-\s*(.+)$/);
+                    let title = headerText;
+                    let date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                    
+                    if (dateMatch) {
+                        title = dateMatch[1].trim();
+                        date = dateMatch[2].trim();
+                    }
+                    
+                    blogEntry.innerHTML = `
+                        <h4>${title}</h4>
+                        <div class="blog-date">${date}</div>
+                        ${content}
+                    `;
+                    
+                    blogContainer.appendChild(blogEntry);
+                });
+                
+            } catch (error) {
+                console.error('Error loading blog updates:', error);
+                document.getElementById('blog-content').innerHTML = `
+                    <div class="blog-entry">
+                        <h4>Project Inception</h4>
+                        <div class="blog-date">December 2024</div>
+                        <p>Beginning work on a Go-based implementation of the classic Eye of the Beholder engine. Initial focus on PAK file parsing and LCW compression algorithms. The goal is to create a modern, maintainable codebase while preserving the authentic gameplay experience.</p>
+                    </div>
+                    <div class="blog-entry">
+                        <h4>Asset Pipeline Development</h4>
+                        <div class="blog-date">Coming Soon</div>
+                        <p>Working on the asset extraction and conversion pipeline. Successfully parsing PAK archives and implementing LCW decompression for CMP files. Next steps include palette handling and sprite rendering.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Load blog updates when page loads
+        document.addEventListener('DOMContentLoaded', loadBlogUpdates);
+        
+        // Optional: Auto-refresh every 5 minutes for development
+        // setInterval(loadBlogUpdates, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
