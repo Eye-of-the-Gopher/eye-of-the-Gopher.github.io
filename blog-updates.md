@@ -1,16 +1,13 @@
-### Project Inception - December 2024
-What? work on a Go-based implementation of the classic Eye of the Beholder engine. Initial focus on PAK file parsing and LCW compression algorithms.
+### Project Inception - Aug 18, 2025
+Initial focus on PAK file parsing and LCW compression algorithms.
 
-The goal is to create a modern, maintainable codebase while preserving the authentic gameplay experience.
+Successfully implemented PAK file extraction.
 
-### Asset Pipeline Progress - January 2025
-Successfully implemented PAK file extraction and LCW decompression! 
+### LCW decompression - Aug 19, 2025
+Implemented basic harness and [Westwood LCW](https://moddingwiki.shikadi.net/wiki/Westwood_LCW) decoder. Commands 1 and 4
 
-Next steps:
-- Palette handling for VGA colors
-- Sprite rendering pipeline
-- Basic UI framework
+### LCW decompression done  - Aug 20, 2025
+Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/DAND.CMP.png)
 
-### Latest Breakthrough - January 15, 2025
-Got the first sprites rendering correctly! The beholder eye is now displaying with proper palette mapping.
+
 
