@@ -9,5 +9,8 @@ Implemented basic harness and [Westwood LCW](https://moddingwiki.shikadi.net/wik
 ### LCW decompression done  - Aug 20, 2025
 Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/DAND.CMP.png)
 
+### Loading palettes done  - Aug 21, 2025
+Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/dand-palette.png)
+
 
 
