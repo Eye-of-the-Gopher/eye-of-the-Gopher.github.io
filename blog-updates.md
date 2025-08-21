@@ -10,7 +10,7 @@ Implemented basic harness and [Westwood LCW](https://moddingwiki.shikadi.net/wik
 Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/DAND.CMP.png)
 
 ### Loading palettes done  - Aug 21, 2025
-Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/dand-palette.png)
+Added support to load palettes and use them while decoding CMP files. Example decoded file ![Dungeons&Dragons](images/dand-palette.png)
 
 
 
