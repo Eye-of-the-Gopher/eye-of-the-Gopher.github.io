@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eye of the Gopher - Dungeon Crawler Engine</title>
+    <title>Eye of the Gopher</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:wght@400;600&display=swap');
         
         * {
             margin: 0;
@@ -14,86 +14,120 @@
         }
         
         body {
-            background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 50%, #2c2c2c 100%);
-            background-attachment: fixed;
-            color: #d4af37;
             font-family: 'Crimson Text', serif;
+            background: #000000 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><defs><pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="%23000000"/><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23222222" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="40" height="40" fill="url(%23grid)"/></svg>') fixed;
+            color: #d4c4a8;
             line-height: 1.6;
             min-height: 100vh;
+            background-attachment: fixed;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         
         header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 3px solid #8b4513;
-            margin-bottom: 40px;
-            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.1), transparent);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
+            backdrop-filter: blur(5px);
+            border-bottom: 3px solid #5d4e37;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
-        .logo-container {
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #4a3c5a, #2d2438);
+            border: 2px solid #6b5b73;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            box-shadow: 0 0 15px rgba(106, 91, 115, 0.3);
         }
         
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.3);
-            border: 3px solid #8b4513;
-            background: linear-gradient(145deg, rgba(60, 60, 60, 0.9), rgba(40, 40, 40, 0.95));
-            padding: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.5);
+        .logo-placeholder::before {
+            content: "👁";
+            font-size: 24px;
+            filter: hue-rotate(240deg);
         }
         
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 3.5em;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.3);
-            margin: 0;
-            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2.8em;
+            font-weight: 600;
+            color: #e6d7c3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(212, 196, 168, 0.3);
+            letter-spacing: 2px;
         }
         
         .subtitle {
-            font-size: 1.4em;
-            color: #a0a0a0;
+            font-size: 1.1em;
+            color: #9d8f7f;
             font-style: italic;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            margin-top: 5px;
+        }
+        
+        main {
+            padding: 60px 0;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8));
+            border-radius: 10px;
+            border: 1px solid #5d4e37;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #e6d7c3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            color: #c4b49d;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
         
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
+            gap: 40px;
+            margin-bottom: 80px;
         }
         
         .feature-card {
-            background: linear-gradient(145deg, rgba(60, 60, 60, 0.8), rgba(40, 40, 40, 0.9));
-            border: 2px solid #8b4513;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
             padding: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            border: 2px solid #5d4e37;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -101,309 +135,305 @@
         .feature-card::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #8b4513, #cd853f, #8b4513);
-            z-index: -1;
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4a3c5a, #6b5b73, #4a3c5a);
         }
         
         .feature-card h3 {
             font-family: 'Cinzel', serif;
-            font-size: 1.8em;
+            font-size: 1.5em;
             margin-bottom: 15px;
-            color: #ffd700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-        }
-        
-        .feature-card p {
-            font-size: 1.1em;
-            color: #e0e0e0;
+            color: #e6d7c3;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
         
+        .feature-card p {
+            color: #b8a690;
+            font-size: 1.1em;
+        }
+        
         .section {
-            margin: 60px 0;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(42, 37, 32, 0.7));
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #5d4e37;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
         .section h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5em;
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: #e6d7c3;
+            border-bottom: 2px solid #6b5b73;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .blog-entry {
             margin-bottom: 30px;
-            text-align: center;
-            color: #d4af37;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-        }
-        
-        .content-box {
-            background: linear-gradient(145deg, rgba(50, 50, 50, 0.9), rgba(30, 30, 30, 0.95));
-            border: 2px solid #8b4513;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .roadmap {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .roadmap-item {
-            background: rgba(40, 40, 40, 0.8);
-            border-left: 4px solid #d4af37;
             padding: 20px;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #6b5b73;
+            border-radius: 0 5px 5px 0;
         }
         
-        .roadmap-item h4 {
+        .blog-entry h3 {
             font-family: 'Cinzel', serif;
-            color: #ffd700;
+            color: #d4c4a8;
             margin-bottom: 10px;
             font-size: 1.3em;
         }
         
-        .blog-entry {
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid #666;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        .blog-entry p {
+            color: #a69582;
+            margin-bottom: 10px;
         }
         
-        .blog-entry h4 {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            margin-bottom: 8px;
-            font-size: 1.4em;
-        }
-        
-        .blog-date {
-            color: #888;
-            font-size: 0.9em;
-            margin-bottom: 15px;
+        .loading {
+            text-align: center;
+            color: #9d8f7f;
             font-style: italic;
         }
         
         footer {
-            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 23, 20, 0.95), rgba(42, 37, 32, 0.95));
+            border-top: 3px solid #5d4e37;
             padding: 40px 0;
-            border-top: 3px solid #8b4513;
-            margin-top: 60px;
-            color: #888;
-            background: linear-gradient(to top, rgba(139, 69, 19, 0.1), transparent);
+            text-align: center;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
         }
         
-        .torch-glow {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, rgba(255, 69, 0, 0.2) 30%, transparent 70%);
-            border-radius: 50%;
+        footer p {
+            color: #9d8f7f;
+            font-size: 1.1em;
+        }
+        
+        .flame-accent {
+            display: inline-block;
+            color: #d4940d;
+            text-shadow: 0 0 8px rgba(212, 148, 13, 0.6);
             animation: flicker 3s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: 1000;
         }
         
         @keyframes flicker {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .dungeon-corner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+            background: url('dungeon-corner.png') no-repeat;
+            background-size: cover;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            .features { grid-template-columns: 1fr; }
-            .container { padding: 15px; }
-            .logo-container { 
-                flex-direction: column; 
-                gap: 20px; 
+            h1 {
+                font-size: 2.2em;
             }
-            .logo { 
-                width: 100px; 
-                height: 100px; 
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .dungeon-corner {
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="torch-glow"></div>
+    <div class="dungeon-corner"></div>
     
-    <div class="container">
-        <header>
-            <div class="logo-container">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" 
-                     alt="Eye of the Gopher Logo" 
-                     class="logo"
-                     style="content: url('your-logo-file.png');">
-                <h1>Eye of the Gopher</h1>
-            </div>
-            <p class="subtitle">A Modern Go Implementation of Classic Dungeon Crawling</p>
-        </header>
-        
-        <section class="features">
-            <div class="feature-card">
-                <h3>🔓 Free and Open Source</h3>
-                <p>Built with the freedom to explore, modify, and distribute. Licensed under GPL, ensuring the community can contribute and benefit from ongoing development.</p>
-            </div>
-            
-            <div class="feature-card">
-                <h3>🎮 Compatible with Original Assets</h3>
-                <p>Seamlessly works with your original Eye of the Beholder game files. Experience classic dungeons with modern performance and reliability.</p>
-            </div>
-            
-            <div class="feature-card">
-                <h3>✨ Graphics Refresh</h3>
-                <p>Enhanced visual fidelity while preserving the authentic retro atmosphere. Improved rendering pipeline built with modern Go graphics libraries.</p>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h2>🗺️ Roadmap</h2>
-            <div class="content-box">
-                <div class="roadmap">
-                    <div class="roadmap-item">
-                        <h4>Phase 1: Core Engine</h4>
-                        <p>PAK file extraction, LCW decompression, basic asset loading and rendering foundation</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 2: Game Logic</h4>
-                        <p>Character movement, collision detection, inventory system, and combat mechanics</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 3: Enhanced Features</h4>
-                        <p>Modern UI improvements, enhanced graphics options, save system modernization</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 4: Community & Modding</h4>
-                        <p>Modding API, level editor, community tools and documentation</p>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                  <img src="eog-logo.png" alt="Eye of the Gopher Logo" class="logo"/>
+
+                    <div>
+                        <h1>Eye of the Gopher</h1>
+                        <div class="subtitle">A Modern Revival of Classic Dungeon Crawling</div>
                     </div>
                 </div>
             </div>
-        </section>
-        
-        <section class="section">
-            <h2>📜 Development Log</h2>
-            <div class="content-box">
-                <div id="blog-content">
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h2>Awakening Ancient <span class="flame-accent">Magic</span></h2>
+                <p>A faithful Go implementation of the legendary Eye of the Beholder engine, breathing new life into the classic dungeon crawler while preserving its authentic soul.</p>
+            </section>
+
+            <section class="features">
+                <div class="feature-card">
+                    <h3>🔓 Free and Open Source</h3>
+                    <p>Built with the community spirit of the ancient guilds. Every line of code is open, every algorithm transparent. Join the fellowship of developers preserving gaming history.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⚔️ Compatible with Original Assets</h3>
+                    <p>Your original game archives remain untouched treasures. The engine speaks the ancient languages of PAK files, LCW compression, and VGA palettes with perfect fluency.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>✨ Graphics Refresh</h3>
+                    <p>Enhanced rendering capabilities while maintaining the classic aesthetic. Modern screens meet retro charm in perfect harmony, breathing new visual life into forgotten corridors.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The <span class="flame-accent">Path</span> Ahead</h2>
+                <div id="roadmap">
                     <div class="blog-entry">
-                        <h4>Loading updates...</h4>
-                        <p>Fetching latest development news...</p>
+                        <h3>Core Engine Foundation</h3>
+                        <p><strong>Current Focus:</strong> PAK file parsing, LCW decompression, and VGA palette handling</p>
+                        <p><strong>Status:</strong> 🔥 Active Development</p>
+                    </div>
+                    
+                    <div class="blog-entry">
+                        <h3>Asset Pipeline</h3>
+                        <p><strong>Next:</strong> Sprite rendering, texture management, and audio system integration</p>
+                        <p><strong>Status:</strong> 📋 Planned</p>
+                    </div>
+                    
+                    <div class="blog-entry">
+                        <h3>Game Logic Implementation</h3>
+                        <p><strong>Future:</strong> Combat system, inventory management, and spell mechanics</p>
+                        <p><strong>Status:</strong> 🗺️ Mapped</p>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <footer>
-            <p>&copy; 2024 Eye of the Gopher Project | Licensed under GPL v3 | Built with Go</p>
-            <p>Eye of the Beholder is a trademark of TSR/Wizards of the Coast</p>
-        </footer>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+            </section>
+
+            <section class="section">
+                <h2>Chronicle of <span class="flame-accent">Progress</span></h2>
+                <div id="blog">
+                    <div class="loading">Loading development chronicles...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Forged in the fires of <span class="flame-accent">Go</span> • Honoring the legacy of Westwood Studios</p>
+        </div>
+    </footer>
+
     <script>
-        // Fetch and render markdown blog updates
-        async function loadBlogUpdates() {
-            try {
-                const response = await fetch('./blog-updates.md');
-                if (!response.ok) throw new Error('Blog updates not found');
+        // Function to parse markdown-like blog entries
+        function parseBlogContent(content) {
+            const lines = content.split('\n');
+            const entries = [];
+            let currentEntry = null;
+            
+            for (const line of lines) {
+                const trimmedLine = line.trim();
                 
-                const markdown = await response.text();
-                const html = marked.parse(markdown);
-                
-                // Parse the HTML to create blog entries
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
-                
-                const blogContainer = document.getElementById('blog-content');
-                blogContainer.innerHTML = '';
-                
-                // Look for h3 headers as blog post titles
-                const headers = tempDiv.querySelectorAll('h3');
-                
-                if (headers.length === 0) {
-                    // If no h3 headers, treat as a single post
-                    blogContainer.innerHTML = `
-                        <div class="blog-entry">
-                            <h4>Latest Update</h4>
-                            <div class="blog-date">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</div>
-                            ${html}
-                        </div>
-                    `;
-                    return;
+                if (trimmedLine.startsWith('### ')) {
+                    if (currentEntry) {
+                        entries.push(currentEntry);
+                    }
+                    currentEntry = {
+                        title: trimmedLine.substring(4),
+                        content: []
+                    };
+                } else if (trimmedLine && currentEntry) {
+                    currentEntry.content.push(trimmedLine);
                 }
+            }
+            
+            if (currentEntry) {
+                entries.push(currentEntry);
+            }
+            
+            return entries;
+        }
+        
+        // Function to render blog entries
+        function renderBlogEntries(entries) {
+            const blogContainer = document.getElementById('blog');
+            
+            if (entries.length === 0) {
+                blogContainer.innerHTML = '<div class="loading">No chronicles found in the archives...</div>';
+                return;
+            }
+            
+            blogContainer.innerHTML = entries.map(entry => `
+                <div class="blog-entry">
+                    <h3>${entry.title}</h3>
+                    ${entry.content.map(line => `<p>${line}</p>`).join('')}
+                </div>
+            `).join('');
+        }
+        
+        // Load blog content from project root
+        async function loadBlogContent() {
+            try {
+                // Try to fetch the blog.md file from the project root
+                const response = await fetch('./blog.md');
                 
-                // Process each blog entry
-                headers.forEach((header, index) => {
-                    const blogEntry = document.createElement('div');
-                    blogEntry.className = 'blog-entry';
+                if (response.ok) {
+                    const content = await response.text();
+                    const entries = parseBlogContent(content);
+                    renderBlogEntries(entries);
+                } else {
+                    // If file doesn't exist, show sample content
+                    const sampleContent = `### Project Inception - December 2024
+What? work on a Go-based implementation of the classic Eye of the Beholder engine. Initial focus on PAK file parsing and LCW compression algorithms.
+
+The goal is to create a modern, maintainable codebase while preserving the authentic gameplay experience.
+
+### Asset Pipeline Progress - January 2025
+Successfully implemented PAK file extraction and LCW decompression! 
+
+Next steps:
+- Palette handling for VGA colors
+- Sprite rendering pipeline
+- Basic UI framework
+
+### Latest Breakthrough - January 15, 2025
+Got the first sprites rendering correctly! The beholder eye is now displaying with proper palette mapping.`;
                     
-                    let content = '';
-                    let currentElement = header.nextElementSibling;
-                    
-                    // Collect content until next h3 or end
-                    while (currentElement && currentElement.tagName !== 'H3') {
-                        content += currentElement.outerHTML;
-                        currentElement = currentElement.nextElementSibling;
-                    }
-                    
-                    // Extract date from header text if present (format: "Title - Date")
-                    const headerText = header.textContent;
-                    const dateMatch = headerText.match(/(.+?)\s*-\s*(.+)$/);
-                    let title = headerText;
-                    let date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-                    
-                    if (dateMatch) {
-                        title = dateMatch[1].trim();
-                        date = dateMatch[2].trim();
-                    }
-                    
-                    blogEntry.innerHTML = `
-                        <h4>${title}</h4>
-                        <div class="blog-date">${date}</div>
-                        ${content}
-                    `;
-                    
-                    blogContainer.appendChild(blogEntry);
-                });
-                
+                    const entries = parseBlogContent(sampleContent);
+                    renderBlogEntries(entries);
+                }
             } catch (error) {
-                console.error('Error loading blog updates:', error);
-                document.getElementById('blog-content').innerHTML = `
+                console.log('Could not load blog.md, using sample content');
+                document.getElementById('blog').innerHTML = `
                     <div class="blog-entry">
-                        <h4>Project Inception</h4>
-                        <div class="blog-date">December 2024</div>
-                        <p>Beginning work on a Go-based implementation of the classic Eye of the Beholder engine. Initial focus on PAK file parsing and LCW compression algorithms. The goal is to create a modern, maintainable codebase while preserving the authentic gameplay experience.</p>
-                    </div>
-                    <div class="blog-entry">
-                        <h4>Asset Pipeline Development</h4>
-                        <div class="blog-date">Coming Soon</div>
-                        <p>Working on the asset extraction and conversion pipeline. Successfully parsing PAK archives and implementing LCW decompression for CMP files. Next steps include palette handling and sprite rendering.</p>
+                        <h3>Chronicles Await</h3>
+                        <p>Create a <strong>blog.md</strong> file in your project root to begin documenting your journey through the ancient corridors of code.</p>
+                        <p>The mystical JavaScript will automatically read and display your progress updates.</p>
                     </div>
                 `;
             }
         }
         
-        // Load blog updates when page loads
-        document.addEventListener('DOMContentLoaded', loadBlogUpdates);
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', loadBlogContent);
         
-        // Optional: Auto-refresh every 5 minutes for development
-        // setInterval(loadBlogUpdates, 5 * 60 * 1000);
+        // Reload blog content every 30 seconds for development
+        setInterval(loadBlogContent, 30000);
     </script>
 </body>
 </html>
