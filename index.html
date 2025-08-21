@@ -253,6 +253,16 @@
             text-shadow: 0 0 5px rgba(212, 148, 13, 0.3);
         }
         
+        .markdown-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid var(--accent-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin: 1rem 0;
+            display: block;
+        }
+        
         .loading {
             text-align: center;
             color: var(--text-muted);
@@ -566,17 +576,18 @@
                     renderBlogEntries(entries);
                 } else {
                     // If file doesn't exist, show sample content
-                    const sampleContent = `### Could not load blog entries
-Error loading blog entries`;
+                    const sampleContent = `### Couldn't load blog entries
+Error while loading blog entries`;
+                    
                     const entries = parseBlogContent(sampleContent);
                     renderBlogEntries(entries);
                 }
             } catch (error) {
-                console.log('Could not load blog.md, using sample content');
+                console.log('Could not load blog-updates.md, using sample content');
                 document.getElementById('blog').innerHTML = `
                     <div class="blog-entry">
-                        <h3>Could not load blog entries</h3>
-                        <p>Error loading blog entries</p>
+                        <h3>Couldn't load blog entries</h3>
+                        <p>Error while loading blog entries</p>
                     </div>
                 `;
             }
