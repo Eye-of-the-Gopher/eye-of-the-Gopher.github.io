@@ -12,5 +12,10 @@ Remaining LCW commands. Example decoded file ![Dungeons&Dragons](images/DAND.CMP
 ### Loading palettes done  - Aug 21, 2025
 Added support to load palettes and use them while decoding CMP files. Example decoded file ![Dungeons&Dragons](images/dand-palette.png)
 
+### Loading palettes done  - Aug 22, 2025
+- Found one file (the title screen) is treated specially and doesn't decompress normally. Probably due to space being needed for the menu.
+- Was able to extract the sprite sheets using the CMP decoder itself. Here's an example ![Chargen](images/CHARGENA.CPS.png)
+
+
 
 
