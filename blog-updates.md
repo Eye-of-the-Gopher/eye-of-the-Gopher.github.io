@@ -15,7 +15,8 @@ Added support to load palettes and use them while decoding CMP files. Example de
 ### Loading palettes done  - Aug 22, 2025
 - Found one file (the title screen) is treated specially and doesn't decompress normally. Probably due to space being needed for the menu.
 - Was able to extract the sprite sheets using the CMP decoder itself. Here's an example ![Chargen](images/CHARGENA.CPS.png)
-
+- Able to play Adlib sounds from the extracted assets using [Adplay](https://github.com/adplug/adplay-unix)
+- Probably going to work with the maps next
 
 
 
