@@ -1,4 +1,11 @@
-### Rest day  - Aug 25, 2025
+### Playing around with maps - Aug 24, 2025
+I didn't really do any extra research but just played around with making the maps a little more interesting. I had an old chart when I had the game which had engineering style maps of the first 3 levels on paper. I tried to create the same effect using some image processing. 
+![Map level1](images/map1.png)
+
+[Here's](images/map1-full.png) a larger version of the image if you want to see the details.
+
+
+### Rest day  - Aug 24, 2025
 This is becoming an obsession and it's entering my dreams. I'm taking a few days off before things become unmanageable. The obsession is what helps me do my best work but it can become too intense. 
 
 Some idle thoughts. The monster sprite sheets only have the monsters facing front, back and left. I presume that's because making them look right is a block flip operation that can done quickly in real time or once when the sheets are loaded so there's considerable space saving.
