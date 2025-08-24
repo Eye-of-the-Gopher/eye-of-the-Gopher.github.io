@@ -163,12 +163,37 @@
             background: rgba(0, 0, 0, 0.3);
             border-left: 4px solid var(--purple-accent);
             border-radius: 0 5px 5px 0;
+            position: relative;
         }
         
         .blog-entry h3 {
             font-family: 'Cinzel', serif;
             color: var(--text-secondary);
             margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .blog-entry-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .anchor-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .blog-entry:hover .anchor-link {
+            opacity: 1;
+        }
+        
+        .anchor-link:hover {
+            color: var(--purple-accent);
+            text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
         }
         
         .blog-entry p {
@@ -281,35 +306,6 @@
             50% { opacity: 0.8; }
         }
         
-        .social-links {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8));
-            border-radius: 8px;
-            border: 1px solid var(--accent-border);
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .social-links h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .social-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            color: var(--purple-accent);
-            text-shadow: 0 0 10px rgba(106, 91, 115, 0.5);
-            transform: translateY(-2px);
-        }
-        
         .dungeon-corner {
             position: fixed;
             bottom: 0;
@@ -321,6 +317,26 @@
             pointer-events: none;
             z-index: -1;
             opacity: 0.6;
+        }
+        
+        .social-bar {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.95));
+            border-top: 1px solid var(--accent-border);
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .social-bar .social-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-bar .social-link:hover {
+            color: var(--purple-accent);
+            text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
         }
         
         footer {
@@ -355,9 +371,9 @@
                 height: 300px;
             }
             
-            .social-link {
+            .social-bar .social-link {
                 margin: 0 0.5rem;
-                font-size: 1.3rem;
+                font-size: 1.1rem;
             }
         }
         
@@ -434,52 +450,44 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="feature-card">
-                        <h3><i class="fas fa-sword me-2"></i>Compatible with Original Assets</h3>
+                        <h3><i class="fas fa-shield-alt me-2"></i>Compatible with Original Assets</h3>
                         <p>Your original game archives remain untouched treasures. The engine speaks the ancient languages of PAK files, LCW compression, and VGA palettes with perfect fluency.</p>
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="feature-card">
-                        <h3><i class="fas fa-sparkles me-2"></i>Graphics Refresh</h3>
+                        <h3><i class="fas fa-magic me-2"></i>Graphics Refresh</h3>
                         <p>Enhanced rendering capabilities while maintaining the classic aesthetic. Modern screens meet retro charm in perfect harmony, breathing new visual life into forgotten corridors.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-8">
-
-                  <section class="content-section">
-                        <h2>Development<span class="flame-accent">notes</span></h2>
-                        <div id="blog">
-                            <div class="loading">Loading development chronicles...</div>
-                        </div>
-                    </section>
+            <section class="content-section">
+                <h2>Development <span class="flame-accent">notes</span></h2>
+                <div id="blog">
+                    <div class="loading">Loading development chronicles...</div>
                 </div>
-                
-                <div class="col-lg-4">
-                    <div class="social-links">
-                        <h3>Join the Quest</h3>
-                        <div class="d-flex justify-content-center flex-wrap">
-                            <a href="https://github.com/Eye-of-the-Gopher/" class="social-link" title="GitHub Repository">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="social-link" title="Discord Community">
-                                <i class="fab fa-discord"></i>
-                            </a>
-                            <a href="#" class="social-link" title="Twitter Updates">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link" title="Reddit Community">
-                                <i class="fab fa-reddit"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
     </main>
+
+    <div class="social-bar">
+        <div class="container">
+            <a href="https://github.com/Eye-of-the-Gopher/" class="social-link" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-link" title="Discord Community">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="social-link" title="Twitter Updates">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link" title="Reddit Community">
+                <i class="fab fa-reddit"></i>
+            </a>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -490,6 +498,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        // Function to create URL-friendly slug from title
+        function createSlug(title) {
+            return title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
+                .trim('-'); // Remove leading/trailing hyphens
+        }
+        
         // Function to parse markdown-like blog entries
         function parseBlogContent(content) {
             const lines = content.split('\n');
@@ -532,10 +550,16 @@
                 // Join content and parse as markdown
                 const markdownContent = entry.content.join('\n\n');
                 const htmlContent = marked.parse(markdownContent);
+                const slug = createSlug(entry.title);
                 
                 return `
-                    <div class="blog-entry">
-                        <h3>${entry.title}</h3>
+                    <div class="blog-entry" id="${slug}">
+                        <div class="blog-entry-header">
+                            <h3>${entry.title}</h3>
+                            <a href="#${slug}" class="anchor-link" title="Link to this entry">
+                                <i class="fas fa-link"></i>
+                            </a>
+                        </div>
                         <div class="markdown-content">${htmlContent}</div>
                     </div>
                 `;
@@ -573,6 +597,23 @@ Error while loading blog entries`;
         
         // Load content when page loads
         document.addEventListener('DOMContentLoaded', loadBlogContent);
+        
+        // Smooth scrolling for anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.anchor-link')) {
+                e.preventDefault();
+                const targetId = e.target.closest('.anchor-link').getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Update URL without triggering page reload
+                    history.pushState(null, null, '#' + targetId);
+                }
+            }
+        });
         
         // Reload blog content every 30 seconds for development
         setInterval(loadBlogContent, 30000);
