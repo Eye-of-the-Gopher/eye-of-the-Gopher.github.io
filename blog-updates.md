@@ -21,6 +21,8 @@ Added support to load palettes and use them while decoding CMP files. Example de
 ### Interpreted maps  - Aug 23, 2025
 Was able to read out a map file and make sense of it. [This](https://www.oldgames.sk/dungeon-mapper/map.php?map=20) is the map of the first level. Here is my visualization ![Level One](images/level1map.png)
 
+This is not complete since I have not interpreted the doors and such. Just room level. However, the overall plan seems to be accurate. There are also the gaps in the north western corner. I'm not sure what those are but I imagine that they saw a lot of empty space in this file and decided to store some data there just because the space was available. The rest of the level maps take up almost the whole screen.
+
 ### Rest day  - Aug 25, 2025
 This is becoming an obsession and it's entering my dreams. I'm taking a few days off before things become unmanageable. The obsession is what helps me do my best work but it can become too intense. 
 
