@@ -1,558 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eye of the Gopher</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:wght@400;600&display=swap');
-        
-        :root {
-            --primary-bg: #000000;
-            --secondary-bg: #141414;
-            --accent-border: #5d4e37;
-            --text-primary: #e6d7c3;
-            --text-secondary: #d4c4a8;
-            --text-muted: #9d8f7f;
-            --purple-accent: #6b5b73;
-            --flame-color: #d4940d;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Crimson Text', serif;
-            background: var(--primary-bg) url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><defs><pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="%23000000"/><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23222222" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="40" height="40" fill="url(%23grid)"/></svg>') fixed;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-        
-        header {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
-            backdrop-filter: blur(5px);
-            border-bottom: 3px solid var(--accent-border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .logo {
-            width: 60px;
-            height: 60px;
-        }
-        
-        .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #4a3c5a, #2d2438);
-            border: 2px solid var(--purple-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px rgba(106, 91, 115, 0.3);
-        }
-        
-        .logo-placeholder::before {
-            content: "👁";
-            font-size: 24px;
-            filter: hue-rotate(240deg);
-        }
-        
-        .brand-title {
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(212, 196, 168, 0.3);
-            letter-spacing: 2px;
-            margin-bottom: 0;
-        }
-        
-        .subtitle {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 0.9rem;
-        }
-        
-        .hero-section {
-            text-align: center;
-            padding: 3rem 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8));
-            border-radius: 10px;
-            border: 1px solid var(--accent-border);
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
-            margin: 4rem 0;
-        }
-        
-        .hero-section h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-primary);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-section p {
-            color: #c4b49d;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .feature-card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px solid var(--accent-border);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #4a3c5a, var(--purple-accent), #4a3c5a);
-        }
-        
-        .feature-card h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-primary);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card p {
-            color: #b8a690;
-        }
-        
-        .content-section {
-            margin-bottom: 4rem;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(20, 20, 20, 0.9));
-            padding: 2.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--accent-border);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .content-section h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-primary);
-            border-bottom: 2px solid var(--purple-accent);
-            padding-bottom: 0.5rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            margin-bottom: 1.5rem;
-        }
-        
-        .blog-entry {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 4px solid var(--purple-accent);
-            border-radius: 0 5px 5px 0;
-            position: relative;
-        }
-        
-        .blog-entry h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            position: relative;
-        }
-        
-        .blog-entry-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .anchor-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        .blog-entry:hover .anchor-link {
-            opacity: 1;
-        }
-        
-        .anchor-link:hover {
-            color: var(--purple-accent);
-            text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
-        }
-        
-        .blog-entry p {
-            color: #a69582;
-            margin-bottom: 0.75rem;
-        }
-        
-        .markdown-content {
-            color: #a69582;
-        }
-        
-        .markdown-content h1,
-        .markdown-content h2,
-        .markdown-content h3,
-        .markdown-content h4,
-        .markdown-content h5,
-        .markdown-content h6 {
-            color: var(--text-secondary);
-            font-family: 'Cinzel', serif;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .markdown-content ul,
-        .markdown-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .markdown-content li {
-            margin-bottom: 0.25rem;
-        }
-        
-        .markdown-content strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        .markdown-content em {
-            color: var(--text-muted);
-        }
-        
-        .markdown-content code {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #c4b49d;
-            border: 1px solid var(--accent-border);
-        }
-        
-        .markdown-content pre {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1rem;
-            border-radius: 5px;
-            border: 1px solid var(--accent-border);
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-        
-        .markdown-content pre code {
-            background: none;
-            padding: 0;
-            border: none;
-        }
-        
-        .markdown-content blockquote {
-            border-left: 4px solid var(--purple-accent);
-            padding-left: 1rem;
-            margin: 1rem 0;
-            font-style: italic;
-            color: var(--text-muted);
-        }
-        
-        .markdown-content a {
-            color: var(--purple-accent);
-            text-decoration: none;
-        }
-        
-        .markdown-content a:hover {
-            color: var(--flame-color);
-            text-shadow: 0 0 5px rgba(212, 148, 13, 0.3);
-        }
-        
-        .markdown-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            border: 1px solid var(--accent-border);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            margin: 1rem 0;
-            display: block;
-        }
-        
-        .loading {
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-        
-        .flame-accent {
-            display: inline-block;
-            color: var(--flame-color);
-            text-shadow: 0 0 8px rgba(212, 148, 13, 0.6);
-            animation: flicker 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        .dungeon-corner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 600px;
-            height: 600px;
-            background: url('images/dungeon-corner2.png') no-repeat;
-            background-size: cover;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.6;
-        }
-        
-        .social-bar {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.95));
-            border-top: 1px solid var(--accent-border);
-            padding: 1rem 0;
-            text-align: center;
-        }
-        
-        .social-bar .social-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-bar .social-link:hover {
-            color: var(--purple-accent);
-            text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
-        }
-        
-        footer {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
-            border-top: 3px solid var(--accent-border);
-            padding: 2.5rem 0;
-            text-align: center;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
-        }
-        
-        footer p {
-            color: var(--text-muted);
-            margin: 0;
-        }
-        
-        /* Responsive typography */
-        @media (max-width: 576px) {
-            .brand-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero-section h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-section p {
-                font-size: 1rem;
-            }
-            
-            .dungeon-corner {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .social-bar .social-link {
-                margin: 0 0.5rem;
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (min-width: 576px) {
-            .brand-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-section h2 {
-                font-size: 2.2rem;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .brand-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-section h2 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-section p {
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .brand-title {
-                font-size: 2.8rem;
-            }
-            
-            .hero-section h2 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-section p {
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eye of the Gopher</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:wght@400;600&display=swap');
+  
+    :root {
+      --primary-bg: #000000;
+      --secondary-bg: #141414;
+      --accent-border: #5d4e37;
+      --text-primary: #e6d7c3;
+      --text-secondary: #d4c4a8;
+      --text-muted: #9d8f7f;
+      --purple-accent: #6b5b73;
+      --flame-color: #d4940d;
+    }
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+      font-family: 'Crimson Text', serif;
+      background: var(--primary-bg) url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><defs><pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="%23000000"/><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23222222" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="40" height="40" fill="url(%23grid)"/></svg>') fixed;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+  
+    header {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
+      backdrop-filter: blur(5px);
+      border-bottom: 3px solid var(--accent-border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+  
+    .logo {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .logo-placeholder {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #4a3c5a, #2d2438);
+      border: 2px solid var(--purple-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(106, 91, 115, 0.3);
+    }
+  
+    .logo-placeholder::before {
+      content: "👁";
+      font-size: 24px;
+      filter: hue-rotate(240deg);
+    }
+  
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(212, 196, 168, 0.3);
+      letter-spacing: 2px;
+      margin-bottom: 0;
+    }
+  
+    .subtitle {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+  
+    .hero-figure {
+      text-align: center;
+      margin: 2rem auto;
+    }
+  
+    .hero-image {
+      display: block;
+      margin: 0 auto 0.75rem auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid var(--accent-border);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+  
+    .hero-caption {
+    color: #ff4444; /* or use #dc3545 for a deeper red */
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.8),
+                 0 0 20px rgba(255, 68, 68, 0.6),
+                 0 0 30px rgba(255, 68, 68, 0.4);
+    } 
+
+    .hero-section {
+      text-align: center;
+      padding: 3rem 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8));
+      border-radius: 10px;
+      border: 1px solid var(--accent-border);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+      margin: 4rem 0;
+    }
+  
+    .hero-section h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--text-primary);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      margin-bottom: 1.5rem;
+    }
+  
+    .hero-section p {
+      color: #c4b49d;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  
+    .feature-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
+      padding: 2rem;
+      border-radius: 8px;
+      border: 2px solid var(--accent-border);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+  
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #4a3c5a, var(--purple-accent), #4a3c5a);
+    }
+  
+    .feature-card h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--text-primary);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      margin-bottom: 1rem;
+    }
+  
+    .feature-card p {
+      color: #b8a690;
+    }
+  
+    .content-section {
+      margin-bottom: 4rem;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(20, 20, 20, 0.9));
+      padding: 2.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--accent-border);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+  
+    .content-section h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--purple-accent);
+      padding-bottom: 0.5rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+      margin-bottom: 1.5rem;
+    }
+  
+    .blog-entry {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--purple-accent);
+      border-radius: 0 5px 5px 0;
+      position: relative;
+    }
+  
+    .blog-entry h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+  
+    .blog-entry-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    .anchor-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.9rem;
+    }
+  
+    .blog-entry:hover .anchor-link {
+      opacity: 1;
+    }
+  
+    .anchor-link:hover {
+      color: var(--purple-accent);
+      text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
+    }
+  
+    .blog-entry p {
+      color: #a69582;
+      margin-bottom: 0.75rem;
+    }
+  
+    .markdown-content {
+      color: #a69582;
+    }
+  
+    .markdown-content h1,
+    .markdown-content h2,
+    .markdown-content h3,
+    .markdown-content h4,
+    .markdown-content h5,
+    .markdown-content h6 {
+      color: var(--text-secondary);
+      font-family: 'Cinzel', serif;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .markdown-content ul,
+    .markdown-content ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    .markdown-content li {
+      margin-bottom: 0.25rem;
+    }
+  
+    .markdown-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+  
+    .markdown-content em {
+      color: var(--text-muted);
+    }
+  
+    .markdown-content code {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #c4b49d;
+      border: 1px solid var(--accent-border);
+    }
+  
+    .markdown-content pre {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1rem;
+      border-radius: 5px;
+      border: 1px solid var(--accent-border);
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+  
+    .markdown-content pre code {
+      background: none;
+      padding: 0;
+      border: none;
+    }
+  
+    .markdown-content blockquote {
+      border-left: 4px solid var(--purple-accent);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+  
+    .markdown-content a {
+      color: var(--purple-accent);
+      text-decoration: none;
+    }
+  
+    .markdown-content a:hover {
+      color: var(--flame-color);
+      text-shadow: 0 0 5px rgba(212, 148, 13, 0.3);
+    }
+  
+    .markdown-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      border: 1px solid var(--accent-border);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      margin: 1rem 0;
+      display: block;
+    }
+  
+    .loading {
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+  
+    .flame-accent {
+      display: inline-block;
+      color: var(--flame-color);
+      text-shadow: 0 0 8px rgba(212, 148, 13, 0.6);
+      animation: flicker 3s ease-in-out infinite alternate;
+    }
+  
+    @keyframes flicker {
+  
+      0%,
+      100% {
+        opacity: 1;
+      }
+  
+      50% {
+        opacity: 0.8;
+      }
+    }
+  
+    .dungeon-corner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 600px;
+      height: 600px;
+      background: url('images/dungeon-corner2.png') no-repeat;
+      background-size: cover;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.6;
+    }
+  
+    .social-bar {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.95));
+      border-top: 1px solid var(--accent-border);
+      padding: 1rem 0;
+      text-align: center;
+    }
+  
+    .social-bar .social-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+  
+    .social-bar .social-link:hover {
+      color: var(--purple-accent);
+      text-shadow: 0 0 5px rgba(106, 91, 115, 0.5);
+    }
+  
+    footer {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
+      border-top: 3px solid var(--accent-border);
+      padding: 2.5rem 0;
+      text-align: center;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
+    }
+  
+    footer p {
+      color: var(--text-muted);
+      margin: 0;
+    }
+  
+    /* Responsive typography */
+    @media (max-width: 576px) {
+      .brand-title {
+        font-size: 1.8rem;
+      }
+  
+      .hero-section h2 {
+        font-size: 1.8rem;
+      }
+  
+      .hero-section p {
+        font-size: 1rem;
+      }
+  
+      .dungeon-corner {
+        width: 300px;
+        height: 300px;
+      }
+  
+      .social-bar .social-link {
+        margin: 0 0.5rem;
+        font-size: 1.1rem;
+      }
+    }
+  
+    @media (min-width: 576px) {
+      .brand-title {
+        font-size: 2.2rem;
+      }
+  
+      .hero-section h2 {
+        font-size: 2.2rem;
+      }
+    }
+  
+    @media (min-width: 768px) {
+      .brand-title {
+        font-size: 2.5rem;
+      }
+  
+      .hero-section h2 {
+        font-size: 2.5rem;
+      }
+  
+      .hero-section p {
+        font-size: 1.2rem;
+      }
+    }
+  
+    @media (min-width: 992px) {
+      .brand-title {
+        font-size: 2.8rem;
+      }
+  
+      .hero-section h2 {
+        font-size: 2.8rem;
+      }
+  
+      .hero-section p {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="dungeon-corner"></div>
-    
-    <header>
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-between py-3">
-                <div class="d-flex align-items-center">
-                    <img src="images/eog-logo.png" alt="Eye of the Gopher Logo" class="logo me-3"/>
-                    <div>
-                        <h1 class="brand-title">Eye of the Gopher</h1>
-                        <div class="subtitle">A Modern Revival of Classic Dungeon Crawling</div>
-                    </div>
-                </div>
-            </div>
+  <div class="dungeon-corner"></div>
+
+  <header>
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between py-3">
+        <div class="d-flex align-items-center">
+          <img src="images/eog-logo.png" alt="Eye of the Gopher Logo" class="logo me-3" />
+          <div>
+            <h1 class="brand-title">Eye of the Gopher</h1>
+            <div class="subtitle">A Modern Revival of Classic Dungeon Crawling</div>
+          </div>
         </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <section class="hero-section">
-                <h2>Awakening Ancient <span class="flame-accent">Magic</span></h2>
-                <img src="images/gathering.png" class="hero-image"><p class="lead">A faithful Go implementation of the legendary Eye of the Beholder engine, breathing new life into the classic dungeon crawler while preserving its authentic soul.</p>
-            </section>
-
-            <div class="row g-4 mb-5">
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <h3><i class="fas fa-unlock me-2"></i>Free and Open Source</h3>
-                        <p>Built with the community spirit of the ancient guilds. Every line of code is open, every algorithm transparent. Join the fellowship of developers preserving gaming history.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <h3><i class="fas fa-shield-alt me-2"></i>Compatible with Original Assets</h3>
-                        <p>Your original game archives remain untouched treasures. The engine speaks the ancient languages of PAK files, LCW compression, and VGA palettes with perfect fluency.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <h3><i class="fas fa-magic me-2"></i>Graphics Refresh</h3>
-                        <p>Enhanced rendering capabilities while maintaining the classic aesthetic. Modern screens meet retro charm in perfect harmony, breathing new visual life into forgotten corridors.</p>
-                    </div>
-                </div>
-            </div>
-
-            <section class="content-section">
-                <h2>Development <span class="flame-accent">notes</span></h2>
-                <div id="blog">
-                    <div class="loading">Loading development chronicles...</div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <div class="social-bar">
-        <div class="container">
-            <a href="https://github.com/Eye-of-the-Gopher/" class="social-link" title="GitHub Repository">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="#" class="social-link" title="Discord Community">
-                <i class="fab fa-discord"></i>
-            </a>
-            <a href="#" class="social-link" title="Twitter Updates">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-link" title="Reddit Community">
-                <i class="fab fa-reddit"></i>
-            </a>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <footer>
-        <div class="container">
-            <p>Forged in the fires of <span class="flame-accent">Go</span> • Honoring the legacy of Westwood Studios</p>
+  <main>
+    <div class="container">
+      <section class="hero-section">
+
+        <h2>Awakening Ancient <span class="flame-accent">Magic</span></h2>
+        <figure class="hero-figure">
+          <img src="images/gathering.png" alt="Description" class="hero-image">
+          <figcaption class="hero-caption">They think they have found a champion</figcaption>
+        </figure>
+        <p class="lead">
+          A faithful Go implementation of the legendary Eye of the Beholder engine, breathing new life into the classic
+          dungeon crawler while preserving its authentic soul.
+        </p>
+
+      </section>
+
+      <div class="row g-4 mb-5">
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <h3><i class="fas fa-unlock me-2"></i>Free and Open Source</h3>
+            <p>Built with the community spirit of the ancient guilds. Every line of code is open, every algorithm
+              transparent. Join the fellowship of developers preserving gaming history.</p>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        // Function to create URL-friendly slug from title
-        function createSlug(title) {
-            return title
-                .toLowerCase()
-                .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
-                .replace(/\s+/g, '-') // Replace spaces with hyphens
-                .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
-                .trim('-'); // Remove leading/trailing hyphens
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <h3><i class="fas fa-shield-alt me-2"></i>Compatible with Original Assets</h3>
+            <p>Your original game archives remain untouched treasures. The engine speaks the ancient languages of PAK
+              files, LCW compression, and VGA palettes with perfect fluency.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <h3><i class="fas fa-magic me-2"></i>Graphics Refresh</h3>
+            <p>Enhanced rendering capabilities while maintaining the classic aesthetic. Modern screens meet retro charm
+              in perfect harmony, breathing new visual life into forgotten corridors.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="content-section">
+        <h2>Development <span class="flame-accent">notes</span></h2>
+        <div id="blog">
+          <div class="loading">Loading development chronicles...</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="social-bar">
+    <div class="container">
+      <a href="https://github.com/Eye-of-the-Gopher/" class="social-link" title="GitHub Repository">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="#" class="social-link" title="Discord Community">
+        <i class="fab fa-discord"></i>
+      </a>
+      <a href="#" class="social-link" title="Twitter Updates">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#" class="social-link" title="Reddit Community">
+        <i class="fab fa-reddit"></i>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Forged in the fires of <span class="flame-accent">Go</span> • Honoring the legacy of Westwood Studios</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // Function to create URL-friendly slug from title
+    function createSlug(title) {
+      return title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
+        .trim('-'); // Remove leading/trailing hyphens
+    }
+
+    // Function to parse markdown-like blog entries
+    function parseBlogContent(content) {
+      const lines = content.split('\n');
+      const entries = [];
+      let currentEntry = null;
+
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+
+        if (trimmedLine.startsWith('### ')) {
+          if (currentEntry) {
+            entries.push(currentEntry);
+          }
+          currentEntry = {
+            title: trimmedLine.substring(4),
+            content: []
+          };
+        } else if (trimmedLine && currentEntry) {
+          currentEntry.content.push(trimmedLine);
         }
-        
-        // Function to parse markdown-like blog entries
-        function parseBlogContent(content) {
-            const lines = content.split('\n');
-            const entries = [];
-            let currentEntry = null;
-            
-            for (const line of lines) {
-                const trimmedLine = line.trim();
-                
-                if (trimmedLine.startsWith('### ')) {
-                    if (currentEntry) {
-                        entries.push(currentEntry);
-                    }
-                    currentEntry = {
-                        title: trimmedLine.substring(4),
-                        content: []
-                    };
-                } else if (trimmedLine && currentEntry) {
-                    currentEntry.content.push(trimmedLine);
-                }
-            }
-            
-            if (currentEntry) {
-                entries.push(currentEntry);
-            }
-            
-            return entries;
-        }
-        
-        // Function to render blog entries with markdown support
-        function renderBlogEntries(entries) {
-            const blogContainer = document.getElementById('blog');
-            
-            if (entries.length === 0) {
-                blogContainer.innerHTML = '<div class="loading">No chronicles found in the archives...</div>';
-                return;
-            }
-            
-            blogContainer.innerHTML = entries.map(entry => {
-                // Join content and parse as markdown
-                const markdownContent = entry.content.join('\n\n');
-                const htmlContent = marked.parse(markdownContent);
-                const slug = createSlug(entry.title);
-                
-                return `
+      }
+
+      if (currentEntry) {
+        entries.push(currentEntry);
+      }
+
+      return entries;
+    }
+
+    // Function to render blog entries with markdown support
+    function renderBlogEntries(entries) {
+      const blogContainer = document.getElementById('blog');
+
+      if (entries.length === 0) {
+        blogContainer.innerHTML = '<div class="loading">No chronicles found in the archives...</div>';
+        return;
+      }
+
+      blogContainer.innerHTML = entries.map(entry => {
+        // Join content and parse as markdown
+        const markdownContent = entry.content.join('\n\n');
+        const htmlContent = marked.parse(markdownContent);
+        const slug = createSlug(entry.title);
+
+        return `
                     <div class="blog-entry" id="${slug}">
                         <div class="blog-entry-header">
                             <h3>${entry.title}</h3>
@@ -563,60 +608,61 @@
                         <div class="markdown-content">${htmlContent}</div>
                     </div>
                 `;
-            }).join('');
-        }
-        
-        // Load blog content from project root
-        async function loadBlogContent() {
-            try {
-                // Try to fetch the blog.md file from the project root
-                const response = await fetch('./blog-updates.md');
-                
-                if (response.ok) {
-                    const content = await response.text();
-                    const entries = parseBlogContent(content);
-                    renderBlogEntries(entries);
-                } else {
-                    // If file doesn't exist, show sample content
-                    const sampleContent = `### Couldn't load blog entries
+      }).join('');
+    }
+
+    // Load blog content from project root
+    async function loadBlogContent() {
+      try {
+        // Try to fetch the blog.md file from the project root
+        const response = await fetch('./blog-updates.md');
+
+        if (response.ok) {
+          const content = await response.text();
+          const entries = parseBlogContent(content);
+          renderBlogEntries(entries);
+        } else {
+          // If file doesn't exist, show sample content
+          const sampleContent = `### Couldn't load blog entries
 Error while loading blog entries`;
-                    
-                    const entries = parseBlogContent(sampleContent);
-                    renderBlogEntries(entries);
-                }
-            } catch (error) {
-                console.log('Could not load blog-updates.md, using sample content');
-                document.getElementById('blog').innerHTML = `
+
+          const entries = parseBlogContent(sampleContent);
+          renderBlogEntries(entries);
+        }
+      } catch (error) {
+        console.log('Could not load blog-updates.md, using sample content');
+        document.getElementById('blog').innerHTML = `
                     <div class="blog-entry">
                         <h3>Couldn't load blog entries</h3>
                         <p>Error while loading blog entries</p>
                     </div>
                 `;
-            }
+      }
+    }
+
+    // Load content when page loads
+    document.addEventListener('DOMContentLoaded', loadBlogContent);
+
+    // Smooth scrolling for anchor links
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.anchor-link')) {
+        e.preventDefault();
+        const targetId = e.target.closest('.anchor-link').getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Update URL without triggering page reload
+          history.pushState(null, null, '#' + targetId);
         }
-        
-        // Load content when page loads
-        document.addEventListener('DOMContentLoaded', loadBlogContent);
-        
-        // Smooth scrolling for anchor links
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.anchor-link')) {
-                e.preventDefault();
-                const targetId = e.target.closest('.anchor-link').getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Update URL without triggering page reload
-                    history.pushState(null, null, '#' + targetId);
-                }
-            }
-        });
-        
-        // Reload blog content every 30 seconds for development
-        setInterval(loadBlogContent, 30000);
-    </script>
+      }
+    });
+
+    // Reload blog content every 30 seconds for development
+    setInterval(loadBlogContent, 30000);
+  </script>
 </body>
+
 </html>
